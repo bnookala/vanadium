@@ -12,7 +12,8 @@
     "node": "~0.6.13"
   },
   "dependencies": {
-    "request": ""
+    "request": "",
+    "websocket": ""
   },
   "devDependencies": {}
 }
