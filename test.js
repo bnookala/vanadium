@@ -10,7 +10,7 @@ request('http://localhost:9000/json', function (err, response, body) {
 	var response = JSON.parse(body);
 	var ws_uri = response[0]['webSocketDebuggerUrl'];
 	var socket = new WebSocketClient();
-	socket.connect('ws://localhost:9000/devtools/page/21_1');
+	socket.connect('ws://localhost:9000/devtools/page/15_1');
 	socket.on('connect', function (connection) {
 		console.log('connected');
 
