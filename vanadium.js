@@ -14,7 +14,11 @@ var vanadium = function (host) {
     this.host = host;
 };
 
-vanadium.prototype.connect = function () {
+vanadium.prototype._availableDebuggers = [];
+
+vanadium.prototype.connect = function (callback) {
+    var context = this;
+
     try {
         request(this.host, function (err, resp, body) {
             if (err !== null) {
@@ -24,18 +28,38 @@ vanadium.prototype.connect = function () {
 
             try {
                 var contents = JSON.parse(body);
-                this._availableDebuggers = contents;
-                console.log(contents);
-                return contents;
             } catch (e) {
                 console.log(e);
                 process.exit(1);
             }
+
+            if (contents.length === 0) {
+                console.log("No remote tabs open");
+                process.exit(1);
+            }
+
+            context._availableDebuggers = contents;
+            callback(contents);
         });
     } catch (e) {
         console.log(e);
         process.exit(1);
     }
+};
+
+vanadium.prototype.debug = function (tabIndex) {
+    if (typeof tabIndex !== 'number') {
+        console.log("Type mismatch: tab index is not a number - exiting");
+        process.exit(1);
+    }
+
+    var tab = this._availableDebuggers[tabIndex];
+    if (!tab) {
+        console.log("No tab found with provided tabindex - exiting");
+        process.exit(1);
+    }
+
+    console.log('tab found');
 };
 
 module.exports = vanadium;
