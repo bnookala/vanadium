@@ -1,4 +1,5 @@
 var request = require('request');
+var tab = require('./lib/tab');
 
 var vanadium = function (host) {
     if (!host) {
@@ -53,13 +54,13 @@ vanadium.prototype.debug = function (tabIndex) {
         process.exit(1);
     }
 
-    var tab = this._availableDebuggers[tabIndex];
-    if (!tab) {
+    var tabRep = this._availableDebuggers[tabIndex];
+    if (!tabRep) {
         console.log("No tab found with provided tabindex - exiting");
         process.exit(1);
     }
 
-    console.log('tab found');
+    return new tab(tabRep['webSocketDebuggerUrl']);
 };
 
 module.exports = vanadium;
