@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "request": "",
-    "websocket": ""
+    "faye-websocket": ""
   },
   "devDependencies": {}
 }

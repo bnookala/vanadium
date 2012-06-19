@@ -48,7 +48,7 @@ vanadium.prototype.connect = function (callback) {
     }
 };
 
-vanadium.prototype.debug = function (tabIndex) {
+vanadium.prototype.debug = function (tabIndex, readyCallback) {
     if (typeof tabIndex !== 'number') {
         console.log("Type mismatch: tab index is not a number - exiting");
         process.exit(1);
@@ -60,7 +60,7 @@ vanadium.prototype.debug = function (tabIndex) {
         process.exit(1);
     }
 
-    return new tab(tabRep['webSocketDebuggerUrl']);
+    return new tab('localhost', '9000', tabRep['webSocketDebuggerUrl'], readyCallback);
 };
 
 module.exports = vanadium;
