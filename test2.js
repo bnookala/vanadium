@@ -14,5 +14,4 @@ function test_fun_on_socket_ready (socket) {
         console.log(event);
     };
     socket.send('omg');
-    socket
 }
